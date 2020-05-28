@@ -27,6 +27,7 @@ int	get_next_line(int fd, char **line)
 	static char	*s_line;
 	char		*l_buffer;
 	register int	result;
+	int			index_newline;
 
 	if (!line || fd < 0 || BUFFER_SIZE < 1)
 		return (-1);
@@ -35,7 +36,8 @@ int	get_next_line(int fd, char **line)
 	l_buffer = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!s_line)
 		s_line = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	while (newline(s_line) == -1 && result >= 1 && result <= BUFFER_SIZE)
+	index_newline = newline(s_line);
+	while (index_newline == -1 && result >= 1 && result <= BUFFER_SIZE)
 	{
 		result = read(fd, l_buffer, BUFFER_SIZE);
 		if (result >= 1 && result <= BUFFER_SIZE && s_line)
@@ -43,7 +45,7 @@ int	get_next_line(int fd, char **line)
 		ft_bzero(l_buffer);
 	}
 	if (result >= 0 && result <= BUFFER_SIZE)
-		s_line = cleanline(line, s_line);
+		s_line = cleanline(line, s_line, index_newline);
 	free(l_buffer);
 	if (result >= 1 && result <= BUFFER_SIZE)
 		return (1);
@@ -51,7 +53,7 @@ int	get_next_line(int fd, char **line)
 }
 
 /*
-** Responsável por unir duas string
+** Responsável por concatenar duas strings
 */
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -79,56 +81,36 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-/* Valida se existe uma linha completa, ou seja, verifica se a string passada contem um \n
-** e retorna 0 para falso e 1 para verdadeiro
-*/
-
-int	check_line(char *str)
-{
-	register int	i;
-
-	i = 0;
-	if (!str)
-		return (1);
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-/* A função recebe como parâmetro **line e *s_line, que contem uma string com uma quebra de linha
+/* 
+** A função recebe como parâmetro **line e *s_line, que contem uma string com uma quebra de linha
 ** em alguma posição. *cleanline é responsável por copiar os caracteres até o \n para a *line e
-** retornar uma string com os caracteres seguintes para a próxima interação
+** retornar uma string com os caracteres seguintes para a próxima interação.
 */
 
-char	*cleanline(char **line, char *s_line)
+char		*cleanline(char **line, char *s_line, int index_newline)
 {
 	char	*l_temp;
-	int	index_newline;
-	int	len;
 
-	index_newline = newline(s_line);
 	if (index_newline >= 0)
 	{
-		//s_line[pos] = '\0';
-		*line = ft_substr(s_line, 0, index_newline);
-		len = ft_strlen(&s_line[index_newline + 1]);
-		l_temp = ft_substr(s_line, index_newline + 1, len);
+		s_line[index_newline] = '\0';
+		*line = (char*)ft_calloc(ft_strlen(s_line) + 1, sizeof(char));
+		l_temp = (char*)ft_calloc(ft_strlen(&s_line[pos + 1]) + 1, sizeof(char));
+		ft_strlcpy(*line, s_line, ft_strlen(s_line) + 1);
+		ft_strlcpy(l_temp, &s_line[pos + 1], ft_strlen(&s_line[pos + 1]) + 1);
 		free(s_line);
 		s_line = NULL;
 		return (l_temp);
 	}
-	*line = (char *)ft_calloc(ft_strlen(s_line) + 1, sizeof(char));
-	*line = ft_substr(s_line, 0, index_newline);
+	*line = (char*)ft_calloc(ft_strlen(s_line) + 1, sizeof(char));
+	ft_strlcpy(*line, s_line, ft_strlen(s_line) + 1);
 	free(s_line);
 	s_line = NULL;
 	return (s_line);
 }
 
-/* Verifica se existe uma quebra de linha na string passada como parâmetro, retornando o índice
+/* 
+** Verifica se existe uma quebra de linha na string passada como parâmetro, retornando o índice
 ** caso encontre. Retorna -1 em caso contrário.
 */
 
@@ -137,14 +119,12 @@ int	newline(char *s_line)
 	int	i;
 
 	i = 0;
-	if (s_line)
+	if (!s_line)
+		return (-1);
+	while (s_line[i])
 	{
-		while (s_line[i])
-		{
-			if (s_line[i] == '\n')
-				return (i);
+		if (s_line[i] == '\n')
+			return (i);
 		i++;
-		}
 	}
-	return (-1);
 }

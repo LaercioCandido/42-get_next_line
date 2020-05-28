@@ -19,12 +19,11 @@
 
 int	get_next_line(int fd, char **line);
 char	*ft_strjoin(char *s1, char *s2);
-int	check_line(char *str);
 char	*cleanline(char **line, char *s_line);
 int	newline(char *s_line);
 size_t	ft_strlen(char *str);
 void	ft_bzero(char *str);
 char	*ft_calloc(size_t count, size_t size);
-char	*ft_substr(char *str, int start, size_t len);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 #endif

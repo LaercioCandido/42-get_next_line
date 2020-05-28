@@ -73,26 +73,24 @@ char	*ft_calloc(size_t count, size_t size)
 }
 
 /*
-** Responsável por extrair uma substring da string passada como parâmetro
+** Responsável por copiar uma substring da string passada como parâmetro
 */
 
-char	*ft_substr(char *str, int start, size_t len)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	*substr;
 	size_t	i;
-	size_t	s_len;
 
-	if (str == 0)
+	if (src == 0)
 		return (0);
-	s_len = ft_strlen(str);
-	i = 0;
-	if (!(substr = ft_calloc(len + 1, sizeof(char))))
-		return (0);
-	while (i < len && (start + i) < s_len)
+	if (dstsize > 0)
 	{
-		substr[i] = str[start + i];
-		i++;
+		i = 0;
+		while (src[i] != '\0' && i < (dstsize - 1))
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	//substr[i] = '\0';
-	return (substr);
+	return (ft_strlen(src));
 }
