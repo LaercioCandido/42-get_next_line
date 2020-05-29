@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcandido <lcandido@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/29 19:27:11 by lcandido          #+#    #+#             */
+/*   Updated: 2020/05/29 19:29:44 by lcandido         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <stdio.h>
 
-int main()
+int		main()
 {
 	int			fd;
 	int			ret;
@@ -9,7 +21,7 @@ int main()
 
 	fd = open("./test1.txt", O_RDONLY);
 	ret = get_next_line(fd, &line);
-	while(line)
+	while (line)
 	{
 		printf("%s\n", line);
 		free(line);
@@ -20,15 +32,15 @@ int main()
 	switch (ret)
 	{
 		case -1:
-			printf("Arquivo terminou com erro");
+		printf("Arquivo terminou com erro");
 		break;
 		case 0:
-			printf("PROGRAMA TERMINOU DE MANEIRA CORRETA.");
+		printf("PROGRAMA TERMINOU DE MANEIRA CORRETA.");
 		break;
 		case 1:
-			printf("Arquivo não foi lido por completo.");
+		printf("Arquivo não foi lido por completo.");
 		break;
 	}
-	close (fd);
+	close(fd);
 	return (ret);
 }

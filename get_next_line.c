@@ -6,20 +6,21 @@
 /*   By: lcandido <lcandido@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 17:44:14 by lcandido          #+#    #+#             */
-/*   Updated: 2020/05/28 22:36:15 by lcandido         ###   ########.fr       */
+/*   Updated: 2020/05/29 19:25:17 by lcandido         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*
-** O projeto consiste em permitir que o código abra e leia um arquivo de texto e execute a 
-** leitura das linhas do arquivo através de um loop conforme o tamanho do buffer 
-** definido através da flag BUFFER_SIZE em gcc -Wall -Wextra -Werror -D BUFFER_SIZE=xx -g *.c
-** O loop é terminado quando uma quebra de linha é encontrada e o valor de retorno é definido como
-** 1, para linha lida, 0, para EOF ou -1, quando um erro acontece.
-** Este projeto utiliza os conceitos de variável estática, treino com a biblioteca de IO e uso
-** responsável de alocação de memória
+** O projeto consiste em permitir que o código abra e leia um arquivo de texto
+** e execute a leitura das linhas do arquivo através de um loop conforme o
+** tamanho do buffer definido através da flag BUFFER_SIZE em
+** gcc -Wall -Wextra -Werror -D BUFFER_SIZE=xx -g *.c
+** O loop é terminado quando uma quebra de linha é encontrada e o valor de
+** retorno é definido como 1, para linha lida, 0, para EOF ou -1, quando um
+** erro acontece. Este projeto utiliza os conceitos de variável estática,
+** treino com a biblioteca de IO e uso responsável de alocação de memória
 */
 
 int		get_next_line(int fd, char **line)
@@ -79,10 +80,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-/* 
-** A função recebe como parâmetro **line e *s_line, que contem uma string com uma quebra de linha
-** em alguma posição. *cleanline é responsável por copiar os caracteres até o \n para a *line e
-** retornar uma string com os caracteres seguintes para a próxima interação.
+/*
+** A função recebe como parâmetro **line e *s_line, que contem uma string
+** com uma quebra de linha em alguma posição. *cleanline é responsável por
+** copiar os caracteres até o \n para a *line e retornar uma string com
+** os caracteres seguintes para a próxima interação.
 */
 
 char	*cleanline(char **line, char *s_line, int j)
@@ -107,9 +109,9 @@ char	*cleanline(char **line, char *s_line, int j)
 	return (s_line);
 }
 
-/* 
-** Verifica se existe uma quebra de linha na string passada como parâmetro, retornando o índice
-** caso o encontre. Retorna -1 em caso contrário.
+/*
+** Verifica se existe uma quebra de linha na string passada como
+** parâmetro, retornando o índice caso o encontre. Retorna -1 em caso contrário.
 */
 
 int		newline(char *s_line)
