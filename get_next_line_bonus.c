@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcandido <lcandido@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 17:44:14 by lcandido          #+#    #+#             */
-/*   Updated: 2020/05/28 22:36:15 by lcandido         ###   ########.fr       */
+/*   Updated: 2020/05/28 22:38:55 by lcandido         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int		get_next_line(int fd, char **line)
 {
-	static char		*s_line;
+	static char		*s_line[OPEN_MAX];
 	char			*l_buffer;
 	register int	result;
 
