@@ -6,7 +6,7 @@
 /*   By: lcandido <lcandido@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 17:44:14 by lcandido          #+#    #+#             */
-/*   Updated: 2020/05/28 22:38:55 by lcandido         ###   ########.fr       */
+/*   Updated: 2020/05/28 23:03:36 by lcandido         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int		get_next_line(int fd, char **line)
 	result = 1;
 	*line = NULL;
 	l_buffer = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	if (!s_line)
-		s_line = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	while (newline(s_line) == -1 && result >= 1 && result <= BUFFER_SIZE)
+	if (!s_line[fd])
+		s_line[fd] = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	while (newline(s_line[fd]) == -1 && result >= 1 && result <= BUFFER_SIZE)
 	{
 		result = read(fd, l_buffer, BUFFER_SIZE);
-		if (result >= 1 && result <= BUFFER_SIZE && s_line)
-			s_line = ft_strjoin(s_line, l_buffer);
+		if (result >= 1 && result <= BUFFER_SIZE && s_line[fd])
+			s_line[fd] = ft_strjoin(s_line[fd], l_buffer);
 		ft_bzero(l_buffer);
 	}
 	if (result >= 0 && result <= BUFFER_SIZE)
-		s_line = cleanline(line, s_line, newline(s_line));
+		s_line[fd] = cleanline(line, s_line[fd], newline(s_line[fd]));
 	free(l_buffer);
 	if (result >= 1 && result <= BUFFER_SIZE)
 		return (1);

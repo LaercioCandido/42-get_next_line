@@ -6,7 +6,7 @@
 /*   By: lcandido <lcandido@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 17:44:23 by lcandido          #+#    #+#             */
-/*   Updated: 2020/05/28 22:40:52 by lcandido         ###   ########.fr       */
+/*   Updated: 2020/05/28 22:59:02 by lcandido         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <limits.h>
 
 int		get_next_line(int fd, char **line);
+int		newline(char *s_line);
 char	*ft_strjoin(char *s1, char *s2);
 char	*cleanline(char **line, char *s_line, int index_newline);
 size_t	ft_strlen(char *str);
